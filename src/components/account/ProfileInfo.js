@@ -35,6 +35,7 @@ export default function PofileInfo() {
     const storage = getStorage();
     const refImg = ref(storage, imgPath);
     const urlImg = await getDownloadURL;
+    console.log("urlImg->" + urlImg);
   };
   return (
     <View style={styles.viewPhoto}>
