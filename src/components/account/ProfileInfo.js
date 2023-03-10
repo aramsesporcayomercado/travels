@@ -36,6 +36,8 @@ export default function PofileInfo() {
     const refImg = ref(storage, imgPath);
     const urlImg = await getDownloadURL;
     console.log("urlImg->" + urlImg);
+    const auth = getAuth();
+    updateProfile(auth.currentUser, { photoURL: urlImg });
   };
   return (
     <View style={styles.viewPhoto}>
@@ -44,6 +46,7 @@ export default function PofileInfo() {
         rounded={true}
         icon={{ type: "material", name: "person" }}
         containerStyle={styles.avatar}
+        source={{ uri: photoURL }}
       >
         <Avatar.Accessory size={25} onPress={changePhoto} />
       </Avatar>
