@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Avatar, Text } from "react-native-elements";
 import * as ImagePicker from "expo-image-picker";
 import { getAuth, updateProfile } from "firebase/auth";
@@ -8,7 +8,8 @@ import { async } from "@firebase/util";
 
 export default function PofileInfo() {
   const { uid, photoURL, displayName, email } = getAuth().currentUser;
-  console.log(uid);
+
+  const [photo, setPhoto] = useState(photoURL);
 
   const changePhoto = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -38,6 +39,7 @@ export default function PofileInfo() {
     console.log("urlImg->" + urlImg);
     const auth = getAuth();
     updateProfile(auth.currentUser, { photoURL: urlImg });
+    setPhoto(urlImg);
   };
   return (
     <View style={styles.viewPhoto}>
@@ -46,7 +48,7 @@ export default function PofileInfo() {
         rounded={true}
         icon={{ type: "material", name: "person" }}
         containerStyle={styles.avatar}
-        source={{ uri: photoURL }}
+        source={{ uri: photo }}
       >
         <Avatar.Accessory size={25} onPress={changePhoto} />
       </Avatar>
